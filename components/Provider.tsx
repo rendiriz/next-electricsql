@@ -33,7 +33,24 @@ export function Provider({ children }: Props) {
       await electric.connect(token);
 
       const syncItems = await electric.db.items.sync();
+      const syncBaskets = await electric.db.basket_items.sync({
+        include: {
+          items: true,
+          orders: true,
+        },
+      });
+      const syncOrders = await electric.db.orders.sync({
+        include: {
+          basket_items: {
+            include: {
+              items: true,
+            },
+          },
+        },
+      });
       await syncItems.synced;
+      await syncBaskets.synced;
+      await syncOrders.synced;
 
       if (!isMounted) {
         return;
