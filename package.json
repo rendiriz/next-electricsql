@@ -1,0 +1,38 @@
+{
+  "name": "next-electricsql",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "client:generate": "bun x electric-sql generate",
+    "db:migrate": "bun x electric-sql with-config \"bun x pg-migrations apply --database {{ELECTRIC_PROXY}} --directory ./postgres/db/migrations\""
+  },
+  "dependencies": {
+    "@databases/pg-migrations": "^5.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "20.11.20",
+    "@types/react": "18.2.58",
+    "@types/react-dom": "18.2.19",
+    "autoprefixer": "10.4.17",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "electric-sql": "^0.9.4",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.338.0",
+    "next": "14.1.0",
+    "postcss": "8.4.35",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss": "3.4.1",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "5.3.3",
+    "wa-sqlite": "rhashimoto/wa-sqlite"
+  }
+}

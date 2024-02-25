@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=react_electricsql
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=passwordforpostgres
+    command:
+      - -c
+      - wal_level=logical
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - /postgres/data:/var/lib/postgresql/data
+
+  electric:
+    image: electricsql/electric
+    container_name: electric
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:passwordforpostgres@postgres/react_electricsql
+      DATABASE_REQUIRE_SSL: false
+      LOGICAL_PUBLISHER_HOST: electric
+      PG_PROXY_PASSWORD: passwordforelectric
+      AUTH_JWT_ALG: HS512
+      AUTH_JWT_KEY: NTNv7j0TuYARvmNMmWXo6fKvM4o6nv/aUi9ryX38ZH+L1bkrnD1ObOQ8JAUmHCBq7Iy7otZcyAagBLHVKvvYaIpmMuxmARQ97jUVG16Jkpkp1wXOPsrF9zwew6TpczyHkHgX5EuLg2MeBuiT/qJACs1J0apruOOJCg/gOtkjB4c=
+    ports:
+      - 5133:5133
+      - 5433:5433
+      - 65432:65432
+    restart: always
